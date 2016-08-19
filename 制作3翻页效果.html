@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #my3d{
+            -webkit-perspective: 800px;
+            -webkit-perspective-origin: 50% 50%;
+
+
+            width: 225px;
+            margin: 50px auto;
+        }
+        #opt{
+            width: 225px;
+            margin: 10px auto;
+            position: absolute;
+            left: 110px;
+            top: -30px;
+        }
+        #images{
+            width: 100%;
+            position: relative;
+            /*设置图片观看的效果是3d*/
+            -webkit-transform-style: preserve-3d;
+        }
+        #images figure{
+            width: 100%;
+            position: absolute;
+        }
+        #images figure img{
+            width: 100%;
+        }
+        #img1 {
+            /*设置图片过渡的动画属性和观看动画的角度*/
+            -webkit-transition: -webkit-transform 2s;
+            -webkit-transform-origin: bottom
+        }
+        #img2,#img3,#img4,#img5 {
+            /*除第一张图片外，其余图片向第一张图片后旋转90度*/
+            -webkit-transform: rotateX(90deg);
+            -webkit-transition: -webkit-transform 2s;
+            -webkit-transform-origin: bottom
+        }
+    </style>
+    <script type="text/javascript"
+            src="js/system.js">
+    </script>
+</head>
+<body>
+    <div id="my3d">
+        <div id="images">
+            <figure id="img1"><img src="images/01.jpg" alt=""></figure>
+            <figure id="img2"><img src="images/02.jpg" alt=""></figure>
+            <figure id="img3"><img src="images/03.jpg" alt=""></figure>
+            <figure id="img4"><img src="images/04.jpg" alt=""></figure>
+            <figure id="img5"><img src="images/05.jpg" alt=""></figure>
+        </div>
+        <div id="opt">
+            <button id="btnNext">向下</button>
+            <button id="btnPrev">向上</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var curIndex=1;
+        window.onload=function(){
+            $$("btnNext").onclick=function() {
+                if (curIndex == 5) return;
+                //获取当前处在显示状态的页
+                var curPage = document.getElementById("img" + curIndex);
+                //沿X轴向下旋转90度
+                curPage.style.webkitTransform = "rotateX(-90deg)";
+                //当前页值加1，转向第二页
+                curIndex++;
+                //获取第二页对应的页面元素
+                var nextPage = document.getElementById("img" + curIndex);
+                //沿X轴向下旋转0度,立起
+                nextPage.style.webkitTransform = "rotateX(0deg)";
+            }
+            $$("btnPrev").onclick=function(){
+                if(curIndex==1) return;
+                //获取当前处在显示状态的页
+                var curPage=document.getElementById("img"+curIndex);
+                //沿X轴向下旋转90度
+                curPage.style.webkitTransform="rotateX(90deg)";
+                //当前页值加1，转向第二页
+                curIndex--;
+                //获取第二页对应的页面元素
+                var nextPage=document.getElementById("img"+curIndex);
+                //沿X轴向下旋转0度,立起
+                nextPage.style.webkitTransform="rotateX(0deg)";
+            }
+        }
+    </script>
+</body>
+</html>
